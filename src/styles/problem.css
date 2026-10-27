@@ -1,0 +1,987 @@
+
+/* =========================================================
+   PROBLEM SLIDE — FOUR-CARD GLASS CAROUSEL
+========================================================= */
+
+:is(.problem-slide, .solution-slide) {
+  --problem-blue: #68baff;
+  --problem-purple: #4924ff;
+  --problem-text: #f5f6ff;
+  --problem-muted: #b9c4d6;
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  padding: clamp(60px, 9dvh, 80px) 38px 16px;
+  overflow: hidden;
+
+  color: var(--problem-text);
+  background: #000000 !important;
+}
+
+:is(.problem-slide, .solution-slide).deck-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 0;
+  overflow: hidden;
+
+  background: #000000 !important;
+}
+
+:is(.problem-slide, .solution-slide) *,
+:is(.problem-slide, .solution-slide) *::before,
+:is(.problem-slide, .solution-slide) *::after {
+  box-sizing: border-box;
+}
+
+:is(.problem-slide__stars, .solution-slide__stars) {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+
+  background-image:
+    radial-gradient(circle, #a7d9ff 1px, transparent 1.5px),
+    radial-gradient(circle, #7c73ff 1px, transparent 1.5px);
+
+  background-size: 173px 149px, 229px 197px;
+  background-position: 20px 30px, 95px 75px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    #000,
+    rgba(0, 0, 0, 0.75) 65%,
+    transparent
+  );
+}
+
+:is(.problem-slide__ambient, .solution-slide__ambient) {
+  position: absolute;
+  z-index: -1;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(100px);
+  opacity: 0.16;
+}
+
+:is(.problem-slide__ambient--blue, .solution-slide__ambient--blue) {
+  left: -240px;
+  bottom: -260px;
+  background: black;
+}
+
+:is(.problem-slide__ambient--violet, .solution-slide__ambient--violet) {
+  right: -230px;
+  bottom: -180px;
+  background: black;
+}
+
+/* =========================================================
+   CONTENT AND HEADING
+========================================================= */
+
+:is(.problem-slide__inner, .solution-slide__inner) {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: clamp(8px, 1.5dvh, 14px);
+  width: 100%;
+  height: 100%;
+  max-height: 720px;
+  max-width: 1480px;
+  min-width: 0;
+  min-height: 0;
+  margin-inline: auto;
+}
+
+:is(.problem-slide__eyebrow, .solution-slide__eyebrow) {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 8px;
+
+  color: var(--problem-blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  line-height: 1.5;
+  padding-left: 80px;
+}
+
+:is(.problem-slide__eyebrow, .solution-slide__eyebrow) > span,
+:is(.problem-slide__footer-label, .solution-slide__footer-label) > span {
+  display: inline-block;
+  width: 38px;
+  height: 2px;
+  flex: 0 0 auto;
+  background: linear-gradient(
+    90deg,
+    var(--problem-blue),
+    #b4dfff
+  );
+}
+
+:is(.problem-slide__headline-row, .solution-slide__heading-group) {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 0.85fr);
+  align-items: end;
+  gap: 44px;
+  /* margin-bottom: 24px; */
+}
+
+:is(.problem-slide__heading, .solution-slide__heading) {
+  min-width: 0;
+  margin: 0;
+
+  color: #fff;
+  font-size: 62px;
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  word-spacing: 0.18em;
+  padding-left: 80px;
+}
+
+:is(.problem-slide__heading, .solution-slide__heading) > span {
+  color: var(--problem-blue);
+}
+
+:is(.problem-slide__intro-copy, .solution-slide__intro-copy) {
+  width: 100%;
+  max-width: 470px;
+  margin: 0 0 5px;
+
+  color: var(--problem-muted);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   CAROUSEL
+   GSAP owns the x-position of each card.
+   CSS must not apply translate(-50%, -50%) to the cards.
+========================================================= */
+
+:is(.problem-slide__carousel, .solution-slide__carousel) {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 52px;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  min-width: 0;
+  min-height: 0;
+  align-self: start;
+}
+
+:is(.problem-slide__viewport, .solution-slide__viewport) {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+:is(.problem-card, .solution-card) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  display: flex;
+  flex-direction: column;
+
+  width: calc(min(355px, 78%) - 1px);
+  height: min(280px, calc(100% - 24px));
+  padding: 29px 27px 24px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(95, 55, 255, 0.55);
+  border-radius: 28px;
+
+  background:
+    radial-gradient(
+      ellipse at 100% 100%,
+      rgba(90, 0, 190, 0.3),
+      transparent 49%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(16, 14, 35, 0.96),
+      rgba(3, 3, 9, 0.97) 58%,
+      rgba(22, 6, 40, 0.96)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 18px 65px rgba(0, 0, 0, 0.3);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  /*
+   * GSAP owns both percentage centering and animated pixel offsets.
+   * A CSS translate here would be overwritten when GSAP sets x.
+   */
+  margin-left: 0;
+  margin-top: 0;
+  transform: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Minimal, subtle bottom shadow for cards in Why it matters & How we solve it */
+:is(.problem-card, .solution-card) {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 18px 65px rgba(0, 0, 0, 0.3),
+    0 14px 28px -6px rgba(75, 145, 255, 0.14);
+}
+
+.solution-card {
+  overflow: visible;
+}
+
+:is(.problem-card--active, .solution-card--active) {
+  border-color: rgba(95, 65, 255, 0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 20px 65px rgba(0, 0, 0, 0.35),
+    0 16px 32px -6px rgba(75, 145, 255, 0.22);
+}
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+:is(.problem-card__topline, .solution-card__topline) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+:is(.problem-card__number, .solution-card__number) {
+  flex: 0 0 auto;
+  color: var(--problem-blue);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+:is(.problem-card__number, .solution-card__number) > span {
+  color: #91a0bb;
+}
+
+:is(.problem-card__label, .solution-card__label) {
+  color: #9ca8c1;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-align: right;
+}
+
+:is(.problem-card__title, .solution-card__title) {
+  margin: 0 0 16px;
+  color: #f7f7ff;
+
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.035em;
+
+  overflow-wrap: break-word;
+}
+
+:is(.problem-card__description, .solution-card__description) {
+  margin: 0;
+  color: #c5cede;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+:is(.problem-card__source, .solution-card__source) {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 7px;
+  margin-top: 12px;
+
+  color: var(--problem-blue);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+:is(.problem-card__source, .solution-card__source):hover {
+  color: #fff;
+}
+
+:is(.problem-card__learn, .solution-card__learn) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  width: 100%;
+  margin-top: auto;
+  padding: 18px 0 0;
+
+  border: 0;
+  background: transparent;
+
+  color: #d6d9e5;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+:is(.problem-card__learn, .solution-card__learn) svg {
+  flex: 0 0 auto;
+  transition: transform 0.25s ease;
+}
+
+:is(.problem-card__learn, .solution-card__learn):hover svg {
+  transform: translateX(6px);
+}
+
+/* =========================================================
+   ARROWS
+========================================================= */
+
+:is(.problem-slide__arrow, .solution-slide__arrow) {
+  position: relative;
+  z-index: 20;
+
+  display: grid;
+  place-items: center;
+
+  width: 52px;
+  height: 52px;
+  padding: 0;
+
+  border: 1px solid rgba(154, 169, 206, 0.48);
+  border-radius: 50%;
+
+  background: rgba(11, 13, 27, 0.8);
+  color: #e5eaff;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+:is(.problem-slide__arrow, .solution-slide__arrow):hover:not(:disabled) {
+  transform: scale(1.06);
+  border-color: var(--problem-blue);
+  background: rgba(47, 35, 112, 0.8);
+}
+
+:is(.problem-slide__arrow, .solution-slide__arrow):disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+
+/* =========================================================
+   FOOTER AND PAGINATION
+========================================================= */
+
+:is(.problem-slide__footer, .solution-slide__footer) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 22px;
+  margin-top: 2px;
+}
+
+:is(.problem-slide__footer-label, .solution-slide__footer-label) {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 0;
+  margin: 0;
+
+  color: var(--problem-blue);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  line-height: 1.6;
+}
+
+:is(.problem-slide__footer-label, .solution-slide__footer-label) > span {
+  width: 32px;
+}
+
+:is(.problem-slide__pagination, .solution-slide__pagination) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+:is(.problem-slide__dot, .solution-slide__dot) {
+  display: block;
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+  background: #41465d;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+:is(.problem-slide__dot--active, .solution-slide__dot--active) {
+  transform: scale(1.1);
+  background: var(--problem-blue);
+  box-shadow: 0 0 16px rgba(104, 186, 255, 0.75);
+}
+
+:is(.problem-slide__continue, .solution-slide__continue) {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 12px;
+  padding: 8px 0;
+
+  border: 0;
+  background: transparent;
+
+  color: #cbd7ec;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+:is(.problem-slide__continue, .solution-slide__continue) svg {
+  flex: 0 0 auto;
+  transition: transform 0.25s ease;
+}
+
+:is(.problem-slide__continue, .solution-slide__continue):hover svg {
+  transform: translateX(5px);
+}
+
+:is(.problem-slide__arrow, .solution-slide__arrow):focus-visible,
+:is(.problem-slide__continue, .solution-slide__continue):focus-visible,
+:is(.problem-slide__dot, .solution-slide__dot):focus-visible,
+:is(.problem-card__learn, .solution-card__learn):focus-visible,
+:is(.problem-card__source, .solution-card__source):focus-visible {
+  outline: 2px solid var(--problem-blue);
+  outline-offset: 5px;
+}
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1500px) {
+  :is(.problem-card, .solution-card) {
+    width: 379px;
+    height: min(280px, calc(100% - 24px));
+    padding: 32px;
+  }
+
+  :is(.problem-card__title, .solution-card__title) {
+    font-size: 25px;
+  }
+
+  :is(.problem-card__description, .solution-card__description) {
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+  :is(.problem-slide, .solution-slide) {
+    padding-right: 4%;
+    padding-left: 4%;
+  }
+
+  :is(.problem-slide__headline-row, .solution-slide__heading-group) {
+    gap: 28px;
+    margin-bottom: 0;
+  }
+
+  :is(.problem-slide__carousel, .solution-slide__carousel) {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 13px;
+  }
+
+  :is(.problem-card, .solution-card) {
+    width: calc(min(330px, 80%) - 1px);
+    height: min(340px, calc(100% - 24px));
+    padding: 25px 22px;
+  }
+
+  :is(.problem-card__title, .solution-card__title) {
+    font-size: 23px;
+  }
+
+  :is(.problem-card__description, .solution-card__description) {
+    font-size: 14px;
+  }
+
+  :is(.problem-slide__arrow, .solution-slide__arrow) {
+    width: 44px;
+    height: 44px;
+  }
+
+  :is(.problem-slide__footer, .solution-slide__footer) {
+    gap: 14px;
+  }
+
+  :is(.problem-slide__footer-label, .solution-slide__footer-label) {
+    gap: 9px;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+  }
+
+  :is(.problem-slide__footer-label, .solution-slide__footer-label) > span {
+    width: 23px;
+  }
+
+  :is(.problem-slide__continue, .solution-slide__continue) {
+    gap: 8px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* =========================================================
+   TABLET AND MOBILE
+========================================================= */
+
+@media (max-width: 780px) {
+  :is(.problem-slide, .solution-slide),
+  :is(.problem-slide, .solution-slide).deck-section {
+    align-items: flex-start;
+    padding: 76px 20px 12px;
+  }
+
+  :is(.problem-slide__eyebrow, .solution-slide__eyebrow) {
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    padding-left: 6px;
+  }
+
+  :is(.problem-slide__eyebrow, .solution-slide__eyebrow) > span {
+    width: 26px;
+  }
+
+  :is(.problem-slide__headline-row, .solution-slide__heading-group) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-bottom: 0;
+  }
+
+  :is(.problem-slide__heading, .solution-slide__heading) {
+    font-size: clamp(55px, 11vw, 78px);
+    line-height: 0.95;
+    padding-left: 6px;
+  }
+
+  :is(.problem-slide__intro-copy, .solution-slide__intro-copy) {
+    max-width: 540px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  :is(.problem-slide__carousel, .solution-slide__carousel) {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  :is(.problem-slide__viewport, .solution-slide__viewport) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  :is(.problem-slide__arrow, .solution-slide__arrow) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(9, 12, 26, 0.96);
+  }
+
+  :is(.problem-slide__arrow--previous, .solution-slide__arrow--previous) { left: 0; }
+  :is(.problem-slide__arrow--next, .solution-slide__arrow--next) { right: 0; }
+
+  :is(.problem-slide__arrow, .solution-slide__arrow):hover:not(:disabled) {
+    transform: translateY(-50%) scale(1.06);
+  }
+
+  :is(.problem-card, .solution-card) {
+    width: calc(min(280px, 72%) - 1px);
+    height: min(335px, calc(100% - 24px));
+    padding: 23px 20px;
+    border-radius: 24px;
+    /* Keep neighboring text from showing through the active glass card. */
+    background-color: #05050d;
+  }
+
+  :is(.problem-card__topline, .solution-card__topline) {
+    gap: 8px;
+    margin-bottom: 21px;
+  }
+
+  :is(.problem-card__number, .solution-card__number) {
+    font-size: 12px;
+  }
+
+  :is(.problem-card__label, .solution-card__label) {
+    font-size: 7px;
+    letter-spacing: 0.08em;
+  }
+
+  :is(.problem-card__title, .solution-card__title) {
+    font-size: 21px;
+  }
+
+  :is(.problem-card__description, .solution-card__description) {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  :is(.problem-card__learn, .solution-card__learn) {
+    padding-top: 15px;
+    font-size: 11px;
+  }
+
+  :is(.problem-slide__arrow, .solution-slide__arrow) {
+    width: 36px;
+    height: 36px;
+  }
+
+  :is(.problem-slide__arrow, .solution-slide__arrow) svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  :is(.problem-slide__footer, .solution-slide__footer) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 18px 12px;
+    margin-top: 22px;
+  }
+
+  :is(.problem-slide__footer-label, .solution-slide__footer-label) {
+    grid-column: 1 / -1;
+    gap: 10px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+  }
+
+  :is(.problem-slide__footer-label, .solution-slide__footer-label) > span {
+    width: 24px;
+  }
+
+  :is(.problem-slide__pagination, .solution-slide__pagination) {
+    justify-content: flex-start;
+    gap: 11px;
+  }
+
+  :is(.problem-slide__continue, .solution-slide__continue) {
+    gap: 7px;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+
+  :is(.problem-slide__continue, .solution-slide__continue) svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+  :is(.problem-slide, .solution-slide),
+  :is(.problem-slide, .solution-slide).deck-section {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  :is(.problem-slide__heading, .solution-slide__heading) {
+    font-size: clamp(48px, 12vw, 64px);
+  }
+
+  :is(.problem-slide__arrow, .solution-slide__arrow) {
+    width: 30px;
+    height: 30px;
+  }
+
+  :is(.problem-slide__arrow, .solution-slide__arrow) svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  :is(.problem-card, .solution-card) {
+    width: calc(min(270px, 72%) - 1px);
+    height: min(325px, calc(100% - 24px));
+    padding: 21px 17px;
+  }
+
+  :is(.problem-card__topline, .solution-card__topline) {
+    margin-bottom: 19px;
+  }
+
+  :is(.problem-card__number, .solution-card__number) {
+    font-size: 11px;
+  }
+
+  :is(.problem-card__label, .solution-card__label) {
+    max-width: 110px;
+    font-size: 7px;
+  }
+
+  :is(.problem-card__title, .solution-card__title) {
+    font-size: 20px;
+  }
+
+  :is(.problem-card__description, .solution-card__description) {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  :is(.problem-card__learn, .solution-card__learn) {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  :is(.problem-slide__footer, .solution-slide__footer) {
+    gap: 16px 8px;
+  }
+
+  :is(.problem-slide__footer-label, .solution-slide__footer-label) {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  :is(.problem-slide__footer-label, .solution-slide__footer-label) > span {
+    width: 19px;
+  }
+
+  :is(.problem-slide__pagination, .solution-slide__pagination) {
+    gap: 9px;
+  }
+
+  :is(.problem-slide__dot, .solution-slide__dot) {
+    width: 8px;
+    height: 8px;
+    flex-basis: 8px;
+  }
+
+  :is(.problem-slide__continue, .solution-slide__continue) {
+    gap: 4px;
+    font-size: 7px;
+    letter-spacing: 0.04em;
+  }
+
+  :is(.problem-slide__continue, .solution-slide__continue) svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.problem-slide, .solution-slide) *,
+  :is(.problem-slide, .solution-slide) *::before,
+  :is(.problem-slide, .solution-slide) *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* Keep navigation in one compact row inside the viewport on every width. */
+:is(.problem-slide, .solution-slide) .slide-navigation {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 8px;
+  margin-top: 0;
+  padding-top: 10px;
+}
+
+:is(.problem-slide, .solution-slide) .slide-navigation__center {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+:is(.problem-slide, .solution-slide) .slide-navigation__button {
+  grid-row: 1;
+}
+
+:is(.problem-slide, .solution-slide) .slide-navigation__button--back {
+  grid-column: 1;
+}
+
+:is(.problem-slide, .solution-slide) .slide-navigation__button--next {
+  grid-column: 3;
+}
+
+@media (min-width: 781px) and (max-width: 1100px) {
+  :is(.problem-slide, .solution-slide).deck-section { padding-top: 108px; }
+}
+
+@media (min-width: 481px) and (max-width: 780px) {
+  :is(.problem-slide__intro, .solution-slide__header) { padding-bottom: 12px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card, .solution-card) {
+    height: min(310px, calc(100% - 24px));
+    padding: 20px;
+  }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__topline, .solution-card__topline) { margin-bottom: 16px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__title, .solution-card__title) { font-size: 22px; margin-bottom: 12px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__description, .solution-card__description) { font-size: 16px; line-height: 1.5; }
+}
+
+@media (max-height: 600px) {
+  :is(.problem-slide, .solution-slide) :is(.problem-card, .solution-card) { padding: 14px 16px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__topline, .solution-card__topline) { margin-bottom: 10px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__title, .solution-card__title) { margin-bottom: 8px; font-size: 18px; line-height: 1.2; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__description, .solution-card__description) { font-size: 12px; line-height: 1.45; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__learn, .solution-card__learn) { padding-top: 10px; font-size: 10px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__source, .solution-card__source) { margin-top: 6px; font-size: 11px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  :is(.problem-slide, .solution-slide).deck-section { padding-top: 14px; padding-bottom: 8px; }
+  :is(.problem-slide__inner, .solution-slide__inner) { row-gap: 6px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-slide__intro, .solution-slide__header) { max-width: 45%; margin-inline: auto; }
+  .presentation :is(.problem-slide, .solution-slide) :is(.problem-slide__heading, .solution-slide__heading) { font-size: 27px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-slide__eyebrow, .solution-slide__eyebrow) { font-size: 8px; margin-bottom: 4px; }
+}
+
+/* Make all four cards easier to read around the 768px tablet width. */
+@media (min-width: 761px) and (max-width: 900px) {
+  :is(.problem-slide, .solution-slide) :is(.problem-card__title, .solution-card__title) {
+    font-size: 24px;
+    line-height: 1.22;
+  }
+
+  :is(.problem-slide, .solution-slide) :is(.problem-card__description, .solution-card__description) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  :is(.problem-slide, .solution-slide) :is(.problem-card__label, .solution-card__label) { font-size: 9px; }
+  :is(.problem-slide, .solution-slide) :is(.problem-card__source, .solution-card__source) { font-size: 13px; }
+}
+
+/* Problem slide footer navigation */
+:is(.problem-slide__previous, .solution-slide__previous) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+:is(.problem-slide__previous, .solution-slide__previous):hover {
+  color: #fff;
+}
+
+:is(.problem-slide__previous, .solution-slide__previous) svg {
+  transition: transform 0.25s ease;
+}
+
+:is(.problem-slide__previous, .solution-slide__previous):hover svg {
+  transform: translateX(-4px);
+}
+
+/* Keep footer navigation consistent */
+:is(.problem-slide__footer, .solution-slide__footer) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Responsive footer */
+@media (max-width: 780px) {
+  :is(.problem-slide__footer, .solution-slide__footer) {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  :is(.problem-slide__previous, .solution-slide__previous) {
+    order: 1;
+  }
+
+  :is(.problem-slide__footer-label, .solution-slide__footer-label) {
+    order: 2;
+  }
+
+  :is(.problem-slide__pagination, .solution-slide__pagination) {
+    order: 3;
+  }
+
+  :is(.problem-slide__continue, .solution-slide__continue) {
+    order: 4;
+  }
+}

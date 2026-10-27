@@ -1,0 +1,1493 @@
+/* =========================================================
+   ASK SLIDE — FULL RESPONSIVE DESIGN
+   Desktop design preserved; tablet and mobile optimized
+========================================================= */
+
+.ask-slide {
+  --ask-blue: #36b8ff;
+  --ask-violet: #9861ff;
+  --ask-lavender: #c19aff;
+  --ask-text: #f7f8ff;
+  --ask-muted: #aebbd4;
+  --ask-border: rgba(148, 163, 184, 0.18);
+  --ask-panel: #0b0e1c;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  padding: 55px 24px 26px;
+
+  overflow: hidden;
+  color: var(--ask-text);
+  background: #000;
+}
+
+.ask-slide,
+.ask-slide *,
+.ask-slide *::before,
+.ask-slide *::after {
+  box-sizing: border-box;
+}
+
+.ask-slide button {
+  font-family: inherit;
+}
+
+.ask-slide button:focus-visible {
+  outline: 2px solid var(--ask-blue);
+  outline-offset: 4px;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.ask-slide__stars {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+
+  opacity: 0.5;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle, #d3e9ff 1px, transparent 1.5px),
+    radial-gradient(circle, #8d7aff 1px, transparent 1.5px);
+
+  background-size: 173px 149px, 229px 197px;
+  background-position: 20px 30px, 95px 75px;
+}
+
+.ask-slide__glow {
+  position: absolute;
+  z-index: -1;
+
+  width: 380px;
+  height: 380px;
+
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.14;
+
+  pointer-events: none;
+}
+
+.ask-slide__glow--blue {
+  left: -240px;
+  bottom: -240px;
+  background: var(--ask-blue);
+}
+
+.ask-slide__glow--violet {
+  top: -250px;
+  right: -180px;
+  background: var(--ask-violet);
+}
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.ask-slide__inner {
+  position: relative;
+
+  width: 100%;
+  max-width: 1450px;
+  min-width: 0;
+
+  margin-inline: auto;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.ask-slide__header {
+  width: 100%;
+  margin: 0 auto 18px;
+
+  text-align: center;
+}
+
+.ask-slide__eyebrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 12px;
+  margin: 0 0 12px;
+
+  color: var(--ask-blue);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  line-height: 1.5;
+}
+
+.ask-slide__eyebrow > span {
+  display: block;
+  width: 32px;
+  height: 2px;
+  flex: 0 0 auto;
+
+  background: linear-gradient(
+    90deg,
+    var(--ask-blue),
+    #c1e5ff
+  );
+}
+
+.ask-slide__heading {
+  margin: 0;
+
+  color: #fff;
+  font-size: 62px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  word-spacing: 0.18em;
+  white-space: nowrap;
+}
+
+.ask-slide__heading > span {
+  color: #65baff;
+}
+
+.ask-slide__subtitle {
+  width: 100%;
+  max-width: 620px;
+
+  margin: 12px auto 0;
+
+  color: #b9c8e0;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   MAIN CHART LAYOUT
+========================================================= */
+
+.ask-slide__main {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 0.9fr)
+    minmax(0, 1.1fr);
+
+  grid-template-areas:
+    "chart-heading legend"
+    "chart legend"
+    "hint legend";
+
+  align-items: center;
+
+  width: 100%;
+  max-width: 1100px;
+  min-width: 0;
+
+  margin: 22px auto 0;
+
+  column-gap: clamp(24px, 4vw, 55px);
+  row-gap: 12px;
+}
+
+.ask-slide__chart-heading {
+  grid-area: chart-heading;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 11px;
+
+  min-width: 0;
+  margin: 0 0 8px;
+}
+
+.ask-slide__heading-line {
+  display: block;
+
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  background: var(--ask-blue);
+  box-shadow: 0 0 12px rgba(54, 184, 255, 0.7);
+}
+
+.ask-slide__chart-heading h3 {
+  margin: 0;
+
+  color: #e8edff;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.ask-slide__total-pill {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: 10px;
+  padding: 7px 11px;
+
+  border: 1px solid rgba(54, 184, 255, 0.3);
+  border-radius: 999px;
+
+  background: rgba(54, 184, 255, 0.07);
+  color: var(--ask-blue);
+
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   CHART WRAPPER
+========================================================= */
+
+.funding-chart {
+  display: contents;
+}
+
+.funding-chart__visual {
+  position: relative;
+  grid-area: chart;
+
+  width: 100%;
+  max-width: 410px;
+  min-width: 0;
+
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+}
+
+.funding-chart__svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.funding-chart__segment {
+  cursor: pointer;
+  outline: none;
+
+  transition:
+    stroke-width 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.funding-chart__segment:hover,
+.funding-chart__segment:focus-visible,
+.funding-chart__segment--active {
+  opacity: 1;
+}
+
+.funding-chart__segment:focus-visible {
+  stroke-width: 51;
+}
+
+/* =========================================================
+   CHART CENTER
+========================================================= */
+
+.funding-chart__center {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 48%;
+  height: 48%;
+
+  margin: auto;
+  padding: 8px;
+
+  overflow: hidden;
+  border-radius: 50%;
+
+  background: #080a16;
+  text-align: center;
+
+  pointer-events: none;
+}
+
+.funding-chart__total-label {
+  margin-bottom: 7px;
+
+  color: var(--ask-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.4;
+}
+
+.funding-chart__total {
+  color: #fff;
+
+  font-size: clamp(25px, 3vw, 43px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.055em;
+}
+
+.funding-chart__center-caption {
+  margin-top: 8px;
+
+  color: #8391b0;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.17em;
+  line-height: 1.4;
+}
+
+.funding-chart__center-dot {
+  display: block;
+
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+
+  margin-bottom: 8px;
+  border-radius: 50%;
+
+  box-shadow: 0 0 14px currentColor;
+}
+
+.funding-chart__center-label {
+  max-width: 100%;
+
+  color: #c0cbe1;
+  font-size: clamp(9px, 1.1vw, 13px);
+  font-weight: 650;
+  line-height: 1.3;
+
+  overflow-wrap: anywhere;
+}
+
+.funding-chart__percentage {
+  margin-top: 4px;
+
+  font-size: clamp(25px, 3.5vw, 46px);
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.06em;
+}
+
+.funding-chart__amount {
+  max-width: 100%;
+
+  margin-top: 6px;
+
+  color: #e1e7f8;
+  font-size: clamp(10px, 1.1vw, 15px);
+  font-weight: 650;
+  line-height: 1.35;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   ALLOCATION LEGEND
+========================================================= */
+
+.funding-chart__legend {
+  grid-area: legend;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: center;
+
+  gap: 12px;
+
+  width: 100%;
+  max-width: 560px;
+  min-width: 0;
+
+  margin: 0 auto;
+}
+
+/* Individual allocation card */
+
+.funding-chart__legend-item {
+  --allocation-color: #36b8ff;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  gap: 9px;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 105px;
+
+  padding: 15px 17px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--ask-border);
+  border-radius: 15px;
+
+  background: linear-gradient(
+    135deg,
+    color-mix(
+      in srgb,
+      var(--allocation-color) 9%,
+      #0b0e1c
+    ),
+    rgba(9, 12, 26, 0.92)
+  );
+
+  color: #e9efff;
+  text-align: left;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Card accent */
+
+.funding-chart__legend-item::before {
+  content: "";
+
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 0;
+
+  width: 3px;
+
+  border-radius: 0 5px 5px 0;
+
+  background: var(--allocation-color);
+  opacity: 0.85;
+
+  transition:
+    opacity 0.25s ease,
+    top 0.25s ease,
+    bottom 0.25s ease;
+}
+
+/* Soft background glow */
+
+.funding-chart__legend-item::after {
+  content: "";
+
+  position: absolute;
+  top: -45px;
+  right: -45px;
+
+  width: 100px;
+  height: 100px;
+
+  border-radius: 50%;
+
+  background: var(--allocation-color);
+  filter: blur(55px);
+  opacity: 0.09;
+
+  pointer-events: none;
+
+  transition: opacity 0.25s ease;
+}
+
+/* Allocation dot */
+
+.funding-chart__legend-dot {
+  display: block;
+
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  background: var(--allocation-color);
+
+  box-shadow: 0 0 10px
+    color-mix(
+      in srgb,
+      var(--allocation-color) 55%,
+      transparent
+    );
+}
+
+/* Allocation name */
+
+.funding-chart__legend-name {
+  position: relative;
+  z-index: 1;
+
+  max-width: 100%;
+  min-width: 0;
+
+  color: #cbd5e8;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+/* Allocation percentage */
+
+.funding-chart__legend-percent {
+  position: relative;
+  z-index: 1;
+
+  color: var(--allocation-color);
+
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+
+/* Hover, focus and active states */
+
+.funding-chart__legend-item:hover,
+.funding-chart__legend-item:focus-visible,
+.funding-chart__legend-item--active {
+  border-color: var(--allocation-color);
+
+  background: linear-gradient(
+    135deg,
+    color-mix(
+      in srgb,
+      var(--allocation-color) 15%,
+      #0b0e1c
+    ),
+    rgba(9, 12, 26, 0.98)
+  );
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.22),
+    0 0 18px
+      color-mix(
+        in srgb,
+        var(--allocation-color) 9%,
+        transparent
+      ),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  transform: translateY(-3px);
+}
+
+.funding-chart__legend-item:hover::before,
+.funding-chart__legend-item--active::before {
+  top: 10px;
+  bottom: 10px;
+  opacity: 1;
+}
+
+.funding-chart__legend-item:hover::after,
+.funding-chart__legend-item--active::after {
+  opacity: 0.18;
+}
+
+/* =========================================================
+   HINT
+========================================================= */
+
+.ask-slide__hint {
+  grid-area: hint;
+
+  width: 100%;
+  max-width: 410px;
+
+  margin: 0 auto;
+
+  color: #8593b0;
+  font-size: 11px;
+  line-height: 1.6;
+
+  text-align: center;
+}
+
+/* =========================================================
+   FOOTER / NAVIGATION
+========================================================= */
+
+.ask-slide__footer {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+
+  gap: 18px;
+
+  /* Added clear space above the navigation buttons */
+  margin-top: 32px;
+  padding-top: 18px;
+
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.ask-slide__footer-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  min-width: 0;
+  margin: 0;
+
+  color: var(--ask-blue);
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+
+  text-align: center;
+}
+
+.ask-slide__footer-label > span {
+  display: block;
+
+  width: 25px;
+  height: 2px;
+  flex: 0 0 auto;
+
+  background: linear-gradient(
+    90deg,
+    var(--ask-blue),
+    var(--ask-lavender)
+  );
+}
+
+.ask-slide__nav {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 9px;
+
+  width: fit-content;
+  min-width: 100px;
+  max-width: 100%;
+
+  padding: 10px 14px;
+
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 9px;
+
+  background: rgba(9, 12, 26, 0.6);
+  color: #d3dcf0;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ask-slide__nav:hover {
+  border-color: var(--ask-blue);
+  background: rgba(54, 184, 255, 0.07);
+  color: var(--ask-blue);
+}
+
+.ask-slide__nav svg {
+  flex: 0 0 auto;
+}
+
+.ask-slide__nav--next {
+  justify-self: end;
+}
+
+.ask-slide__nav:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   LARGE LAPTOPS
+========================================================= */
+
+@media (min-width: 1200px) {
+  .ask-slide__main {
+    column-gap: 55px;
+  }
+
+  .funding-chart__visual {
+    max-width: 410px;
+  }
+
+  .funding-chart__legend-item {
+    min-height: 105px;
+  }
+}
+
+/* =========================================================
+   SMALL LAPTOPS
+========================================================= */
+
+@media (min-width: 761px) and (max-width: 1199px) {
+  .ask-slide {
+    padding: 45px 3.5% 24px;
+  }
+
+  .ask-slide__heading {
+    font-size: clamp(44px, 5.2vw, 58px);
+  }
+
+  .ask-slide__main {
+    grid-template-columns:
+      minmax(0, 0.85fr)
+      minmax(0, 1.15fr);
+
+    column-gap: clamp(18px, 2.5vw, 32px);
+    max-width: 1050px;
+  }
+
+  .funding-chart__visual {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .funding-chart__legend {
+    gap: 9px;
+  }
+
+  .funding-chart__legend-item {
+    min-height: 94px;
+    padding: 12px;
+  }
+
+  .funding-chart__legend-name {
+    font-size: 11px;
+  }
+
+  .funding-chart__legend-percent {
+    font-size: 23px;
+  }
+
+  .ask-slide__footer {
+    margin-top: 26px;
+    padding-top: 15px;
+    gap: 12px;
+  }
+
+  .ask-slide__footer-label {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 760px) {
+  .ask-slide {
+    min-height: 100vh;
+    min-height: 100svh;
+
+    padding: 85px 24px 28px;
+
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .ask-slide__inner {
+    max-width: 600px;
+  }
+
+  .ask-slide__header {
+    margin-bottom: 22px;
+  }
+
+  .ask-slide__eyebrow {
+    gap: 9px;
+    margin-bottom: 12px;
+
+    font-size: 10px;
+    letter-spacing: 0.25em;
+  }
+
+  .ask-slide__eyebrow > span {
+    width: 24px;
+  }
+
+  .ask-slide__heading {
+    font-size: clamp(38px, 7vw, 54px);
+    line-height: 1.1;
+  }
+
+  .ask-slide__subtitle {
+    max-width: 480px;
+    margin-top: 12px;
+
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* Stack chart and legend vertically */
+
+  .ask-slide__main {
+    grid-template-columns: minmax(0, 1fr);
+
+    grid-template-areas:
+      "chart-heading"
+      "chart"
+      "hint"
+      "legend";
+
+    justify-items: center;
+
+    max-width: 500px;
+    margin-top: 24px;
+
+    row-gap: 16px;
+  }
+
+  .ask-slide__chart-heading {
+    width: 100%;
+    margin: 0;
+  }
+
+  .ask-slide__chart-heading h3 {
+    font-size: 14px;
+  }
+
+  .funding-chart__visual {
+    width: min(100%, 340px);
+    max-width: 340px;
+  }
+
+  .funding-chart__legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    width: 100%;
+    max-width: 500px;
+
+    gap: 10px;
+    margin-top: 2px;
+  }
+
+  .funding-chart__legend-item {
+    min-height: 100px;
+    padding: 14px;
+  }
+
+  .funding-chart__legend-name {
+    font-size: 12px;
+  }
+
+  .funding-chart__legend-percent {
+    font-size: 25px;
+  }
+
+  .ask-slide__hint {
+    max-width: 400px;
+    font-size: 11px;
+  }
+
+  /* Navigation sits below the chart and allocation cards */
+
+  .ask-slide__footer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+    gap: 16px 12px;
+
+    margin-top: 30px;
+    padding-top: 18px;
+  }
+
+  .ask-slide__footer-label {
+    grid-column: 1 / -1;
+    grid-row: 1;
+
+    justify-content: center;
+
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    white-space: normal;
+  }
+
+  .ask-slide__nav {
+    grid-row: 2;
+
+    min-width: 0;
+    padding: 11px 14px;
+
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .ask-slide__nav:not(.ask-slide__nav--next) {
+    justify-self: start;
+  }
+
+  .ask-slide__nav--next {
+    justify-self: end;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .ask-slide {
+    padding: 78px 16px 24px;
+  }
+
+  .ask-slide__header {
+    margin-bottom: 18px;
+  }
+
+  .ask-slide__eyebrow {
+    gap: 7px;
+
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+
+  .ask-slide__eyebrow > span {
+    width: 20px;
+  }
+
+  .ask-slide__heading {
+    font-size: clamp(34px, 9vw, 43px);
+    letter-spacing: -0.055em;
+  }
+
+  .ask-slide__subtitle {
+    max-width: 350px;
+
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .ask-slide__main {
+    margin-top: 20px;
+    row-gap: 14px;
+  }
+
+  .ask-slide__chart-heading {
+    gap: 8px;
+  }
+
+  .ask-slide__chart-heading h3 {
+    font-size: 13px;
+  }
+
+  .ask-slide__total-pill {
+    margin-left: 2px;
+    padding: 6px 9px;
+
+    font-size: 10px;
+  }
+
+  .funding-chart__visual {
+    width: min(100%, 320px);
+  }
+
+  .funding-chart__center {
+    padding: 6px;
+  }
+
+  .funding-chart__total-label {
+    margin-bottom: 5px;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .funding-chart__total {
+    font-size: clamp(26px, 8vw, 34px);
+  }
+
+  .funding-chart__center-caption {
+    margin-top: 5px;
+    font-size: 7px;
+    letter-spacing: 0.1em;
+  }
+
+  .funding-chart__center-dot {
+    width: 7px;
+    height: 7px;
+    margin-bottom: 5px;
+  }
+
+  .funding-chart__center-label {
+    font-size: 9px;
+  }
+
+  .funding-chart__percentage {
+    font-size: clamp(24px, 7vw, 31px);
+  }
+
+  .funding-chart__amount {
+    margin-top: 4px;
+    font-size: 10px;
+  }
+
+  .funding-chart__legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .funding-chart__legend-item {
+    min-height: 90px;
+    gap: 7px;
+
+    padding: 12px 11px;
+
+    border-radius: 12px;
+  }
+
+  .funding-chart__legend-item::before {
+    top: 12px;
+    bottom: 12px;
+  }
+
+  .funding-chart__legend-name {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .funding-chart__legend-percent {
+    font-size: 23px;
+  }
+
+  .ask-slide__hint {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .ask-slide__footer {
+    gap: 14px 8px;
+
+    margin-top: 26px;
+    padding-top: 16px;
+  }
+
+  .ask-slide__footer-label {
+    gap: 7px;
+
+    font-size: 8px;
+    letter-spacing: 0.07em;
+    line-height: 1.6;
+  }
+
+  .ask-slide__footer-label > span {
+    width: 18px;
+  }
+
+  .ask-slide__nav {
+    gap: 6px;
+
+    padding: 10px 9px;
+
+    font-size: 9px;
+    letter-spacing: 0.07em;
+  }
+
+  .ask-slide__nav svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* =========================================================
+   EXTRA SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+  .ask-slide {
+    padding: 72px 12px 20px;
+  }
+
+  .ask-slide__heading {
+    font-size: 32px;
+  }
+
+  .ask-slide__subtitle {
+    font-size: 11px;
+  }
+
+  .ask-slide__chart-heading {
+    gap: 6px;
+  }
+
+  .ask-slide__chart-heading h3 {
+    font-size: 12px;
+  }
+
+  .ask-slide__total-pill {
+    padding: 5px 7px;
+    font-size: 9px;
+  }
+
+  .funding-chart__visual {
+    width: min(100%, 285px);
+  }
+
+  .funding-chart__legend {
+    gap: 7px;
+  }
+
+  .funding-chart__legend-item {
+    min-height: 84px;
+    padding: 10px 9px;
+  }
+
+  .funding-chart__legend-name {
+    font-size: 10px;
+  }
+
+  .funding-chart__legend-percent {
+    font-size: 21px;
+  }
+
+  .ask-slide__footer {
+    gap: 12px 6px;
+  }
+
+  .ask-slide__nav {
+    gap: 5px;
+    padding: 9px 7px;
+    font-size: 8px;
+  }
+
+  .ask-slide__footer-label {
+    font-size: 7px;
+  }
+}
+
+/* =========================================================
+   LANDSCAPE PHONES
+   Avoid excessive vertical spacing on short screens
+========================================================= */
+
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .ask-slide {
+    padding-top: 35px;
+    padding-bottom: 20px;
+  }
+
+  .ask-slide__header {
+    margin-bottom: 12px;
+  }
+
+  .ask-slide__heading {
+    font-size: clamp(30px, 5vw, 42px);
+  }
+
+  .ask-slide__subtitle {
+    margin-top: 6px;
+    font-size: 12px;
+  }
+
+  .ask-slide__main {
+    margin-top: 15px;
+  }
+
+  .funding-chart__visual {
+    max-width: 260px;
+  }
+
+  .funding-chart__legend-item {
+    min-height: 75px;
+    padding: 10px;
+  }
+
+  .funding-chart__legend-percent {
+    font-size: 20px;
+  }
+
+  .ask-slide__footer {
+    margin-top: 22px;
+    padding-top: 14px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .ask-slide *,
+  .ask-slide *::before,
+  .ask-slide *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* =========================================================
+   FIT TO ONE SCREEN
+   The slide fills the space under the deck header and the
+   chart / legend shrink with the height that is left.
+========================================================= */
+
+.slide-viewport > .ask-slide {
+  --ask-header-height: 64px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  height: calc(100vh - var(--ask-header-height));
+  height: calc(100dvh - var(--ask-header-height));
+  min-height: 0;
+
+  padding-top: clamp(8px, 3vh, 40px);
+  padding-bottom: clamp(12px, 2.5vh, 26px);
+
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+.slide-viewport > .ask-slide > .ask-slide__inner {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+
+  min-height: 0;
+}
+
+.slide-viewport .ask-slide .ask-slide__header {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+
+.slide-viewport .ask-slide .ask-slide__main {
+  /* Height taken by everything in the chart column except the donut */
+  --ask-chart-reserve: 100px;
+
+  flex: 1 1 0;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-content: center;
+
+  min-height: 0;
+  margin-top: clamp(8px, 2.5vh, 24px);
+
+  container-type: size;
+}
+
+.slide-viewport .ask-slide .funding-chart__visual {
+  width: min(
+    100%,
+    max(180px, min(410px, calc(100cqh - var(--ask-chart-reserve))))
+  );
+
+  container-type: inline-size;
+}
+
+.slide-viewport .ask-slide .funding-chart__legend {
+  align-self: center;
+}
+
+.slide-viewport .ask-slide .funding-chart__legend-item {
+  min-height: clamp(66px, calc((100cqh - 24px) / 3), 105px);
+}
+
+.slide-viewport .ask-slide .slide-navigation {
+  flex: 0 0 auto;
+  margin-top: clamp(12px, 3vh, 32px);
+  padding-top: clamp(10px, 2vh, 18px);
+}
+
+/* Center text scales with the donut instead of the window */
+
+.slide-viewport .ask-slide .funding-chart__total-label {
+  font-size: clamp(7px, 2.4cqi, 10px);
+}
+
+.slide-viewport .ask-slide .funding-chart__total {
+  font-size: clamp(18px, 10.5cqi, 43px);
+}
+
+.slide-viewport .ask-slide .funding-chart__center-caption {
+  font-size: clamp(6px, 2.2cqi, 9px);
+}
+
+.slide-viewport .ask-slide .funding-chart__center-label {
+  font-size: clamp(8px, 3.2cqi, 13px);
+}
+
+.slide-viewport .ask-slide .funding-chart__percentage {
+  font-size: clamp(18px, 11cqi, 46px);
+}
+
+.slide-viewport .ask-slide .funding-chart__amount {
+  font-size: clamp(8px, 3.6cqi, 15px);
+}
+
+/* Short laptop screens: tighter heading and legend cards */
+
+@media (min-width: 761px) and (max-height: 820px) {
+  .slide-viewport .ask-slide .ask-slide__eyebrow {
+    margin-bottom: 6px;
+  }
+
+  .slide-viewport .ask-slide .ask-slide__heading {
+    font-size: clamp(34px, 7vh, 62px);
+  }
+
+  .slide-viewport .ask-slide .funding-chart__legend-item {
+    gap: 5px;
+    padding: 10px 15px;
+  }
+
+  .slide-viewport .ask-slide .funding-chart__legend-percent {
+    font-size: clamp(20px, 3.2vh, 27px);
+  }
+}
+
+/* Header height matches the deck header's mobile size */
+
+@media (max-width: 720px) {
+  .slide-viewport > .ask-slide {
+    --ask-header-height: 54px;
+  }
+}
+
+/* Tablet and phone: chart on top, compact two-column legend below */
+
+@media (max-width: 760px) {
+  .slide-viewport > .ask-slide {
+    padding-top: 12px;
+  }
+
+  .slide-viewport .ask-slide .ask-slide__main {
+    /* Chart heading + three legend rows + gaps */
+    --ask-chart-reserve: 200px;
+
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "chart-heading"
+      "chart"
+      "legend";
+
+    margin-top: 14px;
+    row-gap: 14px;
+  }
+
+  /* "Hover" doesn't apply to touch screens */
+  .slide-viewport .ask-slide .ask-slide__hint {
+    display: none;
+  }
+
+  .slide-viewport .ask-slide .funding-chart__legend {
+    gap: 8px;
+    margin-top: 0;
+  }
+
+  .slide-viewport .ask-slide .funding-chart__legend-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+
+    min-height: 0;
+    padding: 10px 12px;
+
+    border-radius: 11px;
+  }
+
+  .slide-viewport .ask-slide .funding-chart__legend-item::before {
+    top: 9px;
+    bottom: 9px;
+  }
+
+  .slide-viewport .ask-slide .funding-chart__legend-name {
+    flex: 1 1 auto;
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .slide-viewport .ask-slide .funding-chart__legend-percent {
+    font-size: 18px;
+  }
+}
+
+/* Landscape phones: chart and legend side by side again */
+
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .slide-viewport > .ask-slide {
+    padding-top: 6px;
+    padding-bottom: 10px;
+  }
+
+  .slide-viewport > .ask-slide > .ask-slide__inner {
+    max-width: 820px;
+  }
+
+  .slide-viewport .ask-slide .ask-slide__eyebrow {
+    margin-bottom: 4px;
+  }
+
+  .slide-viewport .ask-slide .ask-slide__heading {
+    font-size: clamp(26px, 8vh, 36px);
+  }
+
+  .slide-viewport .ask-slide .ask-slide__main {
+    --ask-chart-reserve: 40px;
+
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "chart-heading legend"
+      "chart legend";
+
+    max-width: none;
+    margin-top: 8px;
+    row-gap: 6px;
+  }
+
+  .slide-viewport .ask-slide .slide-navigation {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  .slide-viewport .ask-slide .slide-navigation__button {
+    min-height: 36px;
+    padding-block: 6px;
+  }
+}

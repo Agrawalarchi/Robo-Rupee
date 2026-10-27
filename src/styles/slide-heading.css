@@ -1,0 +1,42 @@
+/* A consistent centered heading on every slide after the team. */
+.presentation .slide-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+  row-gap: 0;
+}
+
+.presentation .slide-heading__content {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+
+.presentation .slide-heading .slide-heading__eyebrow {
+  justify-content: center;
+  padding-inline: 0;
+  text-align: center;
+}
+
+.presentation .slide-heading h2 {
+  margin-inline: auto;
+  padding-inline: 0;
+  text-align: center;
+}
+
+.presentation :is(.problem-slide__heading, .solution-slide__heading) {
+  font-size: calc(clamp(28px, 8vw, 62px) - 1px);
+  white-space: nowrap;
+  word-spacing: 0.18em;
+}
+
+@media (min-width: 481px) and (max-width: 780px) {
+  .presentation :is(.problem-slide__heading, .solution-slide__heading) {
+    font-size: calc(clamp(30px, 5.5vw, 42px) - 1px);
+  }
+}

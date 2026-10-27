@@ -1,0 +1,717 @@
+/* Market opportunity: Professional pitch deck presentation */
+.market-size-slide.deck-section {
+  --market-blue: #68baff;
+  --market-text: #f5f6ff;
+  --market-muted: #bdc8dc;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  padding: clamp(60px, 9dvh, 80px) 36px 16px;
+  overflow: hidden;
+  color: var(--market-text);
+  background: #000;
+}
+
+.market-size-slide__stars {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image:
+    radial-gradient(circle, #a7d9ff 1px, transparent 1.5px),
+    radial-gradient(circle, #7c73ff 1px, transparent 1.5px);
+  background-size: 173px 149px, 229px 197px;
+  background-position: 20px 30px, 95px 75px;
+}
+
+.market-size-slide__inner {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: clamp(8px, 1.5dvh, 14px);
+  width: min(100%, 1480px);
+  height: 100%;
+  max-height: 720px;
+  min-width: 0;
+  min-height: 0;
+  margin-inline: auto;
+}
+
+.market-size-slide__header { margin: 0; }
+
+.market-size-slide__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 8px;
+  color: var(--market-blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  line-height: 1.5;
+}
+
+.market-size-slide__eyebrow > span {
+  width: 38px;
+  height: 2px;
+  flex: 0 0 auto;
+  background: linear-gradient(90deg, var(--market-blue), #b4dfff);
+}
+
+.market-size-slide__heading {
+  margin: 0;
+  font-size: calc(clamp(27px, 6vw, 62px) - 1px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  word-spacing: 0.18em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.market-size-slide__heading > span { color: var(--market-blue); }
+
+.market-size-slide__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(16px, 3vw, 44px);
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.market-size-slide__visual,
+.market-bubble-area {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+}
+
+.market-graphic {
+  position: relative;
+  display: grid;
+  place-items: center;
+  container-type: size;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ==========================================================================
+   CONVENTIONAL L-SHAPED BAR CHART (Desktop Default)
+   ========================================================================== */
+.market-chart-desktop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(96cqw, 480px);
+  height: min(92cqh, 350px);
+  min-height: 0;
+  padding: 14px 16px 12px 10px;
+  border: 1px solid rgba(133, 171, 255, 0.16);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(12, 16, 32, 0.8), rgba(4, 5, 12, 0.94));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+}
+
+/* Header & Legend */
+.market-chart__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  padding-inline: 4px;
+}
+
+.market-chart__title {
+  font-family: var(--rr-font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #8ea4c7;
+}
+
+.market-chart__legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.market-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--market-muted);
+}
+
+.market-legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.market-legend-dot--primary {
+  background: #4b91ff;
+  box-shadow: 0 0 6px rgba(75, 145, 255, 0.6);
+}
+
+.market-legend-dot--secondary {
+  background: rgba(120, 165, 255, 0.45);
+  border: 1px dashed rgba(120, 165, 255, 0.85);
+}
+
+/* Mobile floating bubbles container: hidden on desktop */
+.market-mobile-floating-area {
+  display: none;
+}
+
+/* L-Shaped Chart Body */
+.market-chart__body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+/* Y-Axis: thin vertical axis with ticks */
+.market-chart__y-axis {
+  position: relative;
+  width: 36px;
+  flex: 0 0 36px;
+  height: 100%;
+}
+
+.market-chart__y-axis-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1.5px;
+  background: rgba(142, 172, 224, 0.45);
+  z-index: 2;
+}
+
+.market-chart__y-tick {
+  position: absolute;
+  right: 6px;
+  transform: translateY(50%);
+  display: flex;
+  align-items: center;
+}
+
+.market-chart__y-tick span {
+  font-family: var(--rr-font-heading);
+  font-size: 9px;
+  font-weight: 600;
+  color: #7288a8;
+  line-height: 1;
+}
+
+.market-chart__y-tick::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  width: 4px;
+  height: 1.5px;
+  background: rgba(142, 172, 224, 0.45);
+}
+
+/* Plot Area */
+.market-chart__plot {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Horizontal reference gridlines */
+.market-chart__gridlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.market-chart__gridline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px dashed rgba(133, 171, 255, 0.12);
+}
+
+/* X-Axis: thin horizontal baseline connecting with Y-axis */
+.market-chart__x-axis-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: rgba(142, 172, 224, 0.45);
+  z-index: 3;
+}
+
+/* Bars Track: 3 columns for TAM, SAM, SOM */
+.market-chart__bars-track {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  z-index: 2;
+}
+
+.market-chart__group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+/* Counting value indicator above the bars */
+.market-chart__group-value {
+  position: absolute;
+  font-family: var(--rr-font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  color: #d6e6ff;
+  text-shadow: 0 0 8px rgba(75, 145, 255, 0.5);
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* Group of 2 bars */
+.market-chart__group-bars {
+  display: flex;
+  gap: 7px;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Bars: Properly proportioned */
+.market-bar {
+  display: block;
+  width: 24px;
+  border-radius: 3px 3px 0 0;
+  transform-origin: center bottom;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.market-bar:hover {
+  filter: brightness(1.15);
+}
+
+.market-bar--primary {
+  background: linear-gradient(to top, color-mix(in srgb, var(--layer-color) 45%, #050b18), var(--layer-color));
+  border: 1.5px solid color-mix(in srgb, var(--layer-color) 85%, #fff);
+  border-bottom: 0;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--layer-color) 40%, transparent);
+}
+
+.market-bar--secondary {
+  opacity: 0.75;
+  background: linear-gradient(to top, color-mix(in srgb, var(--layer-color) 25%, #050b18), color-mix(in srgb, var(--layer-color) 65%, #101524));
+  border: 1.5px solid color-mix(in srgb, var(--layer-color) 50%, rgba(255, 255, 255, 0.3));
+  border-bottom: 0;
+}
+
+/* X-Axis labels below baseline */
+.market-chart__labels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: 36px;
+  padding-top: 8px;
+  text-align: center;
+}
+
+.market-chart__label-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.market-chart__label-item strong {
+  display: block;
+  font-family: var(--rr-font-heading);
+  font-size: clamp(12px, 3.5cqw, 15px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+}
+
+.market-chart__label-item span {
+  display: block;
+  margin-top: 2px;
+  color: var(--market-muted);
+  font-size: clamp(8.5px, 2.5cqw, 10.5px);
+  line-height: 1.2;
+  max-width: 110px;
+}
+
+.market-size-slide__visual-caption,
+.market-bubble-caption {
+  margin: 0;
+  color: #91a8d0;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ==========================================================================
+   BUBBLE ORB AREA (DESKTOP > 600PX)
+   ========================================================================== */
+.market-bubble-orb {
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  width: min(76cqw, 76cqh, 390px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(111, 100, 255, 0.8);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(22, 42, 105, 0.16), rgba(3, 4, 10, 0.94) 72%);
+  box-shadow: 0 0 22px rgba(65, 65, 255, 0.2), inset 0 0 30px rgba(57, 87, 255, 0.12);
+}
+
+.market-bubble-orb__core {
+  position: absolute;
+  inset: 12%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(33, 77, 255, 0.2), transparent 70%);
+}
+
+.market-bubble-orbit {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: 126%;
+  height: 34%;
+  border: 1px solid rgba(112, 103, 255, 0.55);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.market-bubble-orbit--one { transform: translate(-50%, -50%) rotate(-18deg); }
+.market-bubble-orbit--two {
+  width: 118%;
+  height: 49%;
+  border-style: dashed;
+  border-color: rgba(80, 128, 255, 0.45);
+  transform: translate(-50%, -50%) rotate(28deg);
+}
+.market-bubble-orbit--three {
+  width: 108%;
+  height: 66%;
+  border-color: rgba(153, 75, 255, 0.4);
+  transform: translate(-50%, -50%) rotate(-42deg);
+}
+
+.market-bubble-position {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 30%;
+  transform: translate(-50%, -50%);
+}
+
+.market-bubble-position--1 { top: 23%; left: 66%; }
+.market-bubble-position--2 { top: 29%; left: 28%; width: 26%; }
+.market-bubble-position--3 { top: 53%; left: 48%; width: 32%; }
+.market-bubble-position--4 { top: 48%; left: 83%; width: 26%; }
+.market-bubble-position--5 { top: 74%; left: 29%; width: 26%; }
+.market-bubble-position--6 { top: 77%; left: 69%; width: 32%; }
+
+.market-bubble {
+  --bubble-color: #4b91ff;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 6px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--bubble-color) 65%, white);
+  border-radius: 50%;
+  color: #fff;
+  font-size: clamp(8px, 3.3cqw, 12px);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  background: radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.3), transparent 20%), radial-gradient(circle at 35% 25%, var(--bubble-color), color-mix(in srgb, var(--bubble-color) 35%, #05091d) 80%);
+  box-shadow: inset -4px -5px 10px rgba(3, 5, 40, 0.4), 0 0 12px color-mix(in srgb, var(--bubble-color) 25%, transparent);
+}
+
+.market-bubble--blue { --bubble-color: #4b91ff; }
+.market-bubble--cyan { --bubble-color: #39bff1; }
+.market-bubble--violet { --bubble-color: #8464ff; }
+.market-bubble--purple { --bubble-color: #a35bfa; }
+.market-bubble span { max-width: 100%; overflow-wrap: anywhere; }
+
+.market-size-slide .slide-navigation {
+  margin-top: 0;
+  padding-top: 10px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (min-width: 781px) and (max-width: 1100px) {
+  .market-size-slide.deck-section { padding-top: 108px; }
+}
+
+@media (max-width: 780px) {
+  .market-size-slide.deck-section { padding: 76px 20px 12px; }
+  .market-size-slide__eyebrow { gap: 12px; font-size: 10px; letter-spacing: 0.25em; }
+  .market-size-slide__heading { font-size: calc(clamp(27px, 5.5vw, 42px) - 1px); }
+}
+
+/* ==========================================================================
+   PHONE / SMALL WIDTH (< 600px):
+   1. Same bar graph retained, shifted down slightly.
+   2. Box removed ("yeh box mat do jiske andar yeh bar graph hai").
+   3. 6 free-floating orbit circles ("gol gol circles") in the upper headroom.
+   ========================================================================== */
+@media (max-width: 600px) {
+  /* Hide the large right-side bubble area */
+  .market-bubble-area {
+    display: none !important;
+  }
+
+  /* Single column centered layout for mobile */
+  .market-size-slide__content {
+    grid-template-columns: 1fr;
+    gap: 0;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .market-size-slide__visual {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* REMOVE THE BOX ON SMALL WIDTH */
+  .market-chart-desktop {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: min(94cqh, 440px) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .market-chart__header {
+    padding-inline: 0;
+    margin-bottom: 2px;
+  }
+
+  /* FREE-FLOATING ORBIT BUBBLES ARENA (Small on left, large on right) */
+  .market-mobile-floating-area {
+    display: block !important;
+    position: relative;
+    width: 100%;
+    height: 130px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Individual 3D Glowing Orbit Sphere */
+  .market-mobile-bubble {
+    --bubble-color: #4b91ff;
+    position: absolute;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    color: #fff;
+    font-family: var(--rr-font-heading);
+    font-weight: 700;
+    text-align: center;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 25%, transparent 45%),
+      radial-gradient(circle at 35% 30%, var(--bubble-color), color-mix(in srgb, var(--bubble-color) 30%, #030612) 85%);
+    box-shadow:
+      inset -2px -3px 6px rgba(0, 0, 0, 0.6),
+      inset 2px 2px 4px rgba(255, 255, 255, 0.4),
+      0 0 12px color-mix(in srgb, var(--bubble-color) 40%, transparent);
+    border: 1.5px solid color-mix(in srgb, var(--bubble-color) 75%, #fff);
+    z-index: 3;
+    pointer-events: auto;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  .market-mobile-bubble:hover {
+    filter: brightness(1.2);
+  }
+
+  .market-mobile-bubble__text {
+    display: block;
+    width: 90%;
+    line-height: 1.15;
+    padding: 1px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  /* Orbital dashed ring around each floating circle */
+  .market-mobile-bubble__ring {
+    position: absolute;
+    inset: -3px -6px;
+    border: 1px dashed color-mix(in srgb, var(--bubble-color) 70%, transparent);
+    border-radius: 50%;
+    transform: rotate(-14deg);
+    pointer-events: none;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--bubble-color) 25%, transparent);
+  }
+
+  /* Sizing classes: smaller on left, larger on right */
+  .market-mobile-bubble--small {
+    width: 44px;
+    height: 44px;
+    font-size: 7.5px;
+  }
+  .market-mobile-bubble--medium {
+    width: 49px;
+    height: 49px;
+    font-size: 8px;
+  }
+  .market-mobile-bubble--large {
+    width: 55px;
+    height: 55px;
+    font-size: 8.5px;
+  }
+
+  /* Positioning: Small on Left, Medium in Center, Large on Right */
+  .market-mobile-bubble--1 {
+    /* MSME Owners (small, left) */
+    left: 8%;
+    top: 14px;
+  }
+  .market-mobile-bubble--2 {
+    /* First Jobbers (small, center-left) */
+    left: 23%;
+    top: 62px;
+  }
+  .market-mobile-bubble--3 {
+    /* Resident Doctors (medium, center) */
+    left: 39%;
+    top: 10px;
+  }
+  .market-mobile-bubble--4 {
+    /* Content Creators (medium, mid-right) */
+    left: 54%;
+    top: 60px;
+  }
+  .market-mobile-bubble--5 {
+    /* Govt Employees (large, right) */
+    left: 66%;
+    top: 8px;
+  }
+  .market-mobile-bubble--6 {
+    /* CFO Homemakers (large, rightmost) */
+    left: 77%;
+    top: 62px;
+  }
+
+  /* Bar chart body shifted down slightly with ample room */
+  .market-chart__body {
+    margin-top: 4px;
+    margin-bottom: 2px;
+    height: 180px;
+    flex: 0 0 180px;
+  }
+
+  /* Mobile bar sizing: substantial, not too skinny */
+  .market-bar {
+    width: clamp(16px, 4.2vw, 20px);
+    border-radius: 2px 2px 0 0;
+  }
+
+  .market-chart__group-bars {
+    gap: 4px;
+  }
+
+  .market-chart__group-value {
+    font-size: 10px;
+  }
+
+  .market-chart__y-axis {
+    width: 30px;
+    flex: 0 0 30px;
+  }
+
+  .market-chart__labels {
+    margin-left: 30px;
+    padding-top: 6px;
+  }
+
+  .market-chart__label-item strong {
+    font-size: 12px;
+  }
+
+  .market-chart__label-item span {
+    font-size: 8.5px;
+    max-width: 85px;
+  }
+}
+
+@media (max-width: 420px) {
+  .market-size-slide.deck-section { padding-inline: 14px; }
+  .market-size-slide__heading { font-size: clamp(24px, 6.7vw, 28px); }
+  .market-bar { width: 15px; }
+  .market-mobile-floating-area { height: 135px; }
+  .market-mobile-bubble--1 { width: 48px; height: 48px; left: 74%; top: 66px; }
+  .market-mobile-bubble--2 { width: 52px; height: 52px; left: 52%; top: 6px; }
+  .market-mobile-bubble--3 { width: 58px; height: 58px; left: 45%; top: 60px; }
+  .market-mobile-bubble--4 { width: 48px; height: 48px; left: 76%; top: 12px; }
+  .market-mobile-bubble--5 { width: 56px; height: 56px; left: 22%; top: 62px; }
+  .market-mobile-bubble--6 { width: 52px; height: 52px; left: 28%; top: 6px; }
+  .market-mobile-bubble__text { font-size: 7px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .market-size-slide.deck-section { padding-top: 14px; padding-bottom: 8px; }
+  .market-size-slide__inner { row-gap: 6px; }
+  .market-size-slide__header { max-width: 45%; margin-inline: auto; }
+  .market-size-slide__heading { font-size: 25px; }
+  .market-size-slide__eyebrow { font-size: 8px; margin-bottom: 4px; }
+  .market-size-slide__content { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+  .market-chart-desktop { padding: 6px 8px; }
+}

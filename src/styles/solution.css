@@ -1,0 +1,31 @@
+﻿/* The shared Problem/Solution carousel rules live in problem.css.
+   Solution-specific icon details stay here. */
+.solution-slide {
+  --solution-blue: var(--problem-blue);
+}
+
+.solution-card__identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+.solution-card__icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border: 1px solid rgba(133, 166, 255, 0.5);
+  border-radius: 50%;
+  background: rgba(69, 39, 255, 0.16);
+  color: var(--solution-blue);
+}
+
+@media (max-width: 420px), (max-height: 600px) {
+  .solution-card__identity { gap: 6px; }
+  .solution-card__icon { width: 24px; height: 24px; flex-basis: 24px; }
+  .solution-card__icon svg { width: 16px; height: 16px; }
+}
