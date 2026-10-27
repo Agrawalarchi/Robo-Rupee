@@ -15,6 +15,7 @@ import "./styles/roadmap.css";
 import "./styles/AskSlide.css";
 import "./styles/BusinessModelSlide.css";
 import "./styles/slide-heading.css";
+import "./styles/slide-layout.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

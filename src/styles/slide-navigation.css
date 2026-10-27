@@ -99,8 +99,11 @@
   flex: 0 0 auto;
 }
 
-.slide-navigation__button:disabled {
-  opacity: 0.55;
+.slide-navigation .slide-navigation__button:disabled {
+  border-color: rgba(148, 163, 184, 0.12);
+  background: rgba(9, 12, 26, 0.3);
+  color: #5d6478;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 

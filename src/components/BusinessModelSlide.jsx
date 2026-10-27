@@ -1,6 +1,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Globe,
+  Mail,
+  MessageCircle,
+  X,
+} from "lucide-react";
 import SlideNavigation from "./SlideNavigation";
 import { gsap } from "gsap";
 import RoboLogo from "./RoboLogo";
@@ -41,6 +48,15 @@ const BUSINESS_POINTS = [
   },
 ];
 
+// Contact bar opened from the center logo. Fill in `href` when the links
+// are ready (e.g. "https://wa.me/91XXXXXXXXXX", "mailto:…", "https://…");
+// until then each item shows as a plain icon + label.
+const CONTACT_ACTIONS = [
+  { id: "whatsapp", label: "WhatsApp", icon: MessageCircle, href: "" },
+  { id: "email", label: "Email", icon: Mail, href: "" },
+  { id: "visit", label: "Visit", icon: Globe, href: "" },
+];
+
 // Below this width the cards become a carousel like the problem slide's
 const CAROUSEL_QUERY = "(max-width: 600px)";
 
@@ -52,7 +68,8 @@ function getCarouselState(index, active, cardWidth) {
   return {
     x: distance * cardWidth * 0.82,
     scale: absDistance === 0 ? 1 : 0.9,
-    opacity: absDistance === 0 ? 1 : absDistance === 1 ? 0.55 : 0,
+    // autoAlpha (not opacity) so a card hidden at 0 becomes visible again
+    autoAlpha: absDistance === 0 ? 1 : absDistance === 1 ? 0.55 : 0,
     zIndex: 10 - absDistance,
   };
 }
@@ -72,6 +89,19 @@ export default function BusinessModelSlide({
     () => window.matchMedia(CAROUSEL_QUERY).matches
   );
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
+  // Close the contact bar with Escape
+  useEffect(() => {
+    if (!isContactOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setIsContactOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isContactOpen]);
 
   useEffect(() => {
     const query = window.matchMedia(CAROUSEL_QUERY);
@@ -140,7 +170,9 @@ export default function BusinessModelSlide({
 
       if (carousel) {
         placeCards(activeIndexRef.current, true);
-        goToCardRef.current = context.add((index) => placeCards(index));
+        // A named context method keeps the tweens tracked by this breakpoint
+        context.add("goToCard", (index) => placeCards(index));
+        goToCardRef.current = (index) => context.goToCard(index);
 
         // Card width changes with the screen, and so does the spacing
         handleResize = () => placeCards(activeIndexRef.current, true);
@@ -522,20 +554,24 @@ gsap.to(".business-model__logo-ring", {
             </>
           )}
 
-          <div
+          <button
+            type="button"
             className="business-model__logo"
             ref={logoRef}
-            aria-label="Robo Rupee"
+            onClick={() => setIsContactOpen((open) => !open)}
+            aria-expanded={isContactOpen}
+            aria-controls="business-model-contact"
+            aria-label="Contact Robo Rupee"
           >
-            <div className="business-model__logo-ring">
-              <div className="business-model__logo-emblem">
+            <span className="business-model__logo-ring">
+              <span className="business-model__logo-emblem">
                 <RoboLogo />
-              </div>
-            </div>
-            {/* <span className="business-model__logo-caption">
-              ROBO RUPEE
-            </span> */}
-          </div>
+              </span>
+            </span>
+            <span className="business-model__logo-caption">
+              TAP TO CONNECT
+            </span>
+          </button>
         </div>
 
         <SlideNavigation onPrevious={onPrevious} onContinue={onContinue}>
@@ -562,6 +598,63 @@ gsap.to(".business-model__logo-ring", {
           )}
         </SlideNavigation>
       </div>
+
+      {/* Clicking anywhere outside the bar closes it */}
+      <button
+        type="button"
+        className={`business-model-contact__backdrop${
+          isContactOpen ? " is-open" : ""
+        }`}
+        onClick={() => setIsContactOpen(false)}
+        tabIndex={-1}
+        aria-hidden="true"
+      />
+
+      <footer
+        id="business-model-contact"
+        className={`business-model-contact${isContactOpen ? " is-open" : ""}`}
+        aria-label="Contact Robo Rupee"
+        inert={!isContactOpen || undefined}
+      >
+        <ul className="business-model-contact__list">
+          {CONTACT_ACTIONS.map(({ id, label, icon: Icon, href }) => {
+            const content = (
+              <>
+                <Icon size={21} strokeWidth={1.6} aria-hidden="true" />
+                <span>{label}</span>
+              </>
+            );
+
+            return (
+              <li key={id}>
+                {href ? (
+                  <a
+                    className="business-model-contact__item"
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <span className="business-model-contact__item">
+                    {content}
+                  </span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+        <button
+          type="button"
+          className="business-model-contact__close"
+          onClick={() => setIsContactOpen(false)}
+          aria-label="Close contact options"
+        >
+          <X size={16} strokeWidth={1.8} />
+        </button>
+      </footer>
     </section>
   );
 }

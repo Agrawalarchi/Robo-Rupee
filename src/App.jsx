@@ -1,5 +1,11 @@
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap } from "gsap";
 import RoboLogo from "./components/RoboLogo";
@@ -280,6 +286,62 @@ timeline
   }
 }, []);
 
+  /*
+   * Keep every slide inside one screen: when a slide's content is taller
+   * than the space between its paddings (slide-layout.css), scale it down
+   * evenly and pin it to the top of that space.
+   */
+  useLayoutEffect(() => {
+    const section = slideViewportRef.current?.querySelector(
+      ":scope > section.deck-section"
+    );
+    if (!section) return undefined;
+
+    // The slide's real content: skip decorative layers and hidden elements
+    const content = [...section.children].find((element) => {
+      const style = getComputedStyle(element);
+      return (
+        element.getAttribute("aria-hidden") !== "true" &&
+        style.position !== "absolute" &&
+        style.position !== "fixed" &&
+        element.getClientRects().length > 0
+      );
+    });
+    if (!content) return undefined;
+
+    const fitToScreen = () => {
+      content.style.transform = "";
+
+      const sectionStyle = getComputedStyle(section);
+      const paddingTop = parseFloat(sectionStyle.paddingTop);
+      const paddingBottom = parseFloat(sectionStyle.paddingBottom);
+      const available = section.clientHeight - paddingTop - paddingBottom;
+
+      const rect = content.getBoundingClientRect();
+      const height = Math.max(rect.height, content.scrollHeight);
+
+      if (height <= available + 1) return;
+
+      const top = section.getBoundingClientRect().top + paddingTop;
+
+      content.style.transformOrigin = "top center";
+      content.style.transform = `translateY(${top - rect.top}px) scale(${
+        available / height
+      })`;
+    };
+
+    fitToScreen();
+
+    const observer = new ResizeObserver(fitToScreen);
+    observer.observe(section);
+    document.fonts?.ready.then(fitToScreen);
+
+    return () => {
+      observer.disconnect();
+      content.style.transform = "";
+    };
+  }, [activeSlide, presentationRevealed]);
+
   useEffect(() => {
   const viewport = slideViewportRef.current;
 
@@ -320,9 +382,8 @@ timeline
   onPrevious: () => {
     if (previousId) navigateToSlide(previousId);
   },
-  onContinue: () => {
-    if (nextId) navigateToSlide(nextId);
-  },
+  // No handler on the last slide, so its NEXT button is disabled
+  onContinue: nextId ? () => navigateToSlide(nextId) : undefined,
 });
 
   useEffect(() => {

@@ -33,7 +33,7 @@ export default function SlideNavigation({
         type="button"
         className="slide-navigation__button slide-navigation__button--next"
         onClick={onContinue}
-        disabled={disabled}
+        disabled={disabled || !onContinue}
       >
         <span>NEXT</span>
         <ArrowRight size={18} />

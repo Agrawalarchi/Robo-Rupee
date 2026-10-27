@@ -1898,7 +1898,7 @@
 
   .roadmap-slide .roadmap-journey {
     height: auto;
-    margin: 0 0 18px;
+    margin: clamp(24px, 4vh, 40px) 0 18px;
     padding-left: 0 !important;
     overflow-x: clip !important;
     overflow-y: visible !important;
@@ -2225,17 +2225,6 @@
 
   .roadmap-slide .roadmap-journey__cards > .roadmap-card {
     min-height: 0;
-  }
-}
-
-/* Phones: centered vertically, nudged up. The top padding clears the
-   floating logo; the larger bottom padding lifts the content a little */
-
-@media (max-width: 760px) {
-  .slide-viewport > .roadmap-slide {
-    justify-content: center;
-    padding-top: 84px;
-    padding-bottom: clamp(48px, 12vh, 120px);
   }
 }
 

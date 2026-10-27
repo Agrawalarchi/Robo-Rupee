@@ -1048,3 +1048,221 @@
     height: 16px;
   }
 }
+
+/* =========================================================
+   CONTACT BAR
+   The center logo is a button; tapping it slides a contact
+   bar up from the bottom of the screen.
+========================================================= */
+
+/* Logo as a button, looking the same as before */
+.business-model__logo {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.business-model__logo-ring,
+.business-model__logo-emblem {
+  display: grid;
+}
+
+/* Soft pulse so the logo reads as tappable */
+.business-model__logo-ring {
+  position: relative;
+}
+
+.business-model__logo-ring::after {
+  position: absolute;
+  inset: -1px;
+
+  border: 1px solid rgba(100, 146, 255, 0.7);
+  border-radius: 50%;
+
+  content: "";
+  pointer-events: none;
+
+  animation: business-model-logo-pulse 2.4s ease-out infinite;
+}
+
+@keyframes business-model-logo-pulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+.business-model__logo:hover .business-model__logo-ring,
+.business-model__logo[aria-expanded="true"] .business-model__logo-ring {
+  border-color: #9dbfff;
+}
+
+.business-model__logo:focus-visible {
+  outline: none;
+}
+
+.business-model__logo:focus-visible .business-model__logo-ring {
+  outline: 2px solid var(--bm-blue);
+  outline-offset: 5px;
+}
+
+/* Invisible layer behind the bar; a click on it closes the bar */
+.business-model-contact__backdrop {
+  position: fixed;
+  z-index: 20001;
+  inset: 0;
+
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.35);
+
+  opacity: 0;
+  visibility: hidden;
+  cursor: default;
+
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.business-model-contact__backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.business-model-contact {
+  position: fixed;
+  z-index: 20002;
+  bottom: 0;
+  left: 50%;
+
+  width: min(100%, 560px);
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+
+  border: 1px solid rgba(95, 55, 255, 0.55);
+  border-bottom: 0;
+  border-radius: 22px 22px 0 0;
+
+  background:
+    radial-gradient(
+      ellipse at 100% 100%,
+      rgba(90, 0, 190, 0.3),
+      transparent 55%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(16, 14, 35, 0.98),
+      rgba(3, 3, 9, 0.98) 58%,
+      rgba(22, 6, 40, 0.98)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 -18px 50px rgba(0, 0, 0, 0.45);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  visibility: hidden;
+  transform: translate(-50%, 100%);
+
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.4s ease;
+}
+
+.business-model-contact.is-open {
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.business-model-contact__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.business-model-contact__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+
+  padding: 12px 6px;
+
+  border-radius: 14px;
+
+  color: #e9efff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.business-model-contact__item svg {
+  color: var(--bm-blue);
+}
+
+a.business-model-contact__item:hover,
+a.business-model-contact__item:focus-visible {
+  background: rgba(105, 186, 255, 0.08);
+  color: #fff;
+  outline: none;
+}
+
+.business-model-contact__close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+
+  display: grid;
+  place-items: center;
+
+  width: 26px;
+  height: 26px;
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.06);
+  color: #aab7cc;
+
+  cursor: pointer;
+}
+
+.business-model-contact__close:focus-visible {
+  outline: 2px solid var(--bm-blue);
+  outline-offset: 2px;
+}
+
+/* Separators between the three items, like a tab bar */
+.business-model-contact__list > li + li {
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+@media (min-width: 561px) {
+  .business-model-contact {
+    bottom: 20px;
+    border-bottom: 1px solid rgba(95, 55, 255, 0.55);
+    border-radius: 22px;
+    transform: translate(-50%, calc(100% + 24px));
+  }
+}
